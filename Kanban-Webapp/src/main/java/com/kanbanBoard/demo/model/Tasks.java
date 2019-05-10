@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
@@ -29,22 +31,25 @@ public class Tasks extends AuditModel{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
-	private String name; 
-	private String description;
+	private String taskName; 
+	private String taskDescription;
 	
 	 @Temporal(TemporalType.TIMESTAMP)
 	 @Column(name = "due_date",updatable = true)
 	 @CreatedDate
 	 private Date due_date;
+	 	
 	
-	 @ManyToOne(fetch = FetchType.LAZY, optional = false)
+	 @ManyToOne(fetch = FetchType.LAZY)
 	 @JoinColumn(name = "project_id", nullable = false)
+	 @Fetch(FetchMode.JOIN)
 	 @OnDelete(action = OnDeleteAction.CASCADE)
 	 @JsonIgnore
 	 private Project project;
 	 
 	 @ManyToOne(fetch = FetchType.LAZY, optional = false)
 	 @JoinColumn(name = "status_id", nullable = false)
+	 @Fetch(FetchMode.JOIN)
 	 @OnDelete(action = OnDeleteAction.CASCADE)
 	 @JsonIgnore
 	 private Status status;
@@ -57,20 +62,20 @@ public class Tasks extends AuditModel{
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTaskName() {
+		return taskName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTaskName(String name) {
+		this.taskName = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getTaskDescription() {
+		return taskDescription;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setTaskDescription(String description) {
+		this.taskDescription = description;
 	}
 
 	public Date getDue_date() {

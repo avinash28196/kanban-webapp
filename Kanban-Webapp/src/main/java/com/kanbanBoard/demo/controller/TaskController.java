@@ -53,8 +53,8 @@ public class TaskController {
 		 statusRepository.save(status);
 	     return projectRepository.findById(projectId).map(project -> {
 	    	 task.setProject(project);
-	    	 task.setName(task.getName());
-	    	 task.setDescription(task.getDescription());
+	    	 task.setTaskName(task.getTaskName());
+	    	 task.setTaskDescription(task.getTaskDescription());
 	    	 task.setDue_date(task.getDue_date());
 	    	 status.setStatus(status.getStatus());
 	    	 task.setStatus(status);	    	 
@@ -70,8 +70,8 @@ public class TaskController {
 			throw new ResourceNotFoundException("Project Id " + projectId + " not found");
 		}
 		return taskRepository.findById(taskId).map(task ->{
-			task.setName(taskRequest.getName());
-			task.setDescription(taskRequest.getDescription());
+			task.setTaskName(taskRequest.getTaskName());
+			task.setTaskDescription(taskRequest.getTaskDescription());
 			task.setDue_date(taskRequest.getDue_date());
 			return taskRepository.save(task);
 		}).orElseThrow(() -> new ResourceNotFoundException("Task Id " + taskId + "not found"));
@@ -87,6 +87,11 @@ public class TaskController {
 	}
 	
 	
+	@GetMapping("api/v1/tasks/{taskId}/status/{statusId}")
+	public Optional<Tasks> getTaskStatus(@PathVariable (value = "taskId") Long taskId,
+										 @PathVariable (value = "statusId") Long statusId){
+		return taskRepository.findByIdAndStatus_Id(taskId, statusId);
+		
+	}
 	
-
 }

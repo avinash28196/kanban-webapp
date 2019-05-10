@@ -2,8 +2,9 @@ package com.kanbanBoard.demo.model;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,29 +26,24 @@ public class Project extends AuditModel{
 	private String name;
 	
 	private String description;
-		
+	
+	@OneToMany(targetEntity = Tasks.class, fetch = FetchType.LAZY)
+	private Set<Tasks> task;
+	
 	
 	public Project() {
 
 	}
-		
-
-	
+			
 
 	public Long getId() {
 		return id;
 	}
 
-
-
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
-
-
+	
 	public String getName() {
 		return name;
 	}
@@ -64,9 +60,12 @@ public class Project extends AuditModel{
 		this.description = description;
 	}
 
-	
-	
-	
-	
+	public Set<Tasks> getTask() {
+		return task;
+	}
+
+	public void setTask(Set<Tasks> task) {
+		this.task = task;
+	}	
 	
 }

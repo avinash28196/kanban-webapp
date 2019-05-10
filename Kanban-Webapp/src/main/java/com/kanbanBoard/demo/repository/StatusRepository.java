@@ -7,5 +7,7 @@ import com.kanbanBoard.demo.model.Status;
 
 @Repository
 public interface StatusRepository extends JpaRepository<Status, Long>{
+	
+	
 
 }

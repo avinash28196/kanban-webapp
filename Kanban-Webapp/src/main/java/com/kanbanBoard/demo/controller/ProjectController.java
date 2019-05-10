@@ -1,6 +1,6 @@
 package com.kanbanBoard.demo.controller;
 
-import java.util.stream.Stream;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kanbanBoard.demo.dto.ProjectTaskDTO;
 import com.kanbanBoard.demo.exception.ResourceNotFoundException;
 import com.kanbanBoard.demo.model.Project;
 import com.kanbanBoard.demo.repository.ProjectRepository;
@@ -34,6 +35,11 @@ public class ProjectController {
 	@GetMapping("/api/v2/projects")
 	public Page<Project> findProjects(Pageable pageable){
 		return projectRepository.findAllProjects(pageable);
+	}
+	
+	@GetMapping("/api/v0/joins")
+	public List<ProjectTaskDTO> getProjectTask(){
+		return projectRepository.fetchData();
 	}
 	
 	@PostMapping("/api/new-project")
