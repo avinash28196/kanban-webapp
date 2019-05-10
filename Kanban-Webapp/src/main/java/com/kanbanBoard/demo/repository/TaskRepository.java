@@ -17,10 +17,10 @@ public interface TaskRepository extends JpaRepository<Tasks, Long>{
 	
 	Optional<Tasks> findByIdAndProject_Id(Long id,Long projectId);
 	
-	Page<Tasks> findByProject_Id(int projectId, Pageable pageable);
+	Page<Tasks> findByProject_Id(Long projectId, Pageable pageable);
 	
 	@Query("select tasks from Tasks tasks where project_id = ?1")
-	Page<Tasks> findProjectsTask(int projectId, Pageable pagabale);
+	Page<Tasks> findProjectsTask(Long projectId, Pageable pagabale);
 	
 	
 	
