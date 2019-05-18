@@ -9,6 +9,13 @@ import org.springframework.context.annotation.PropertySources;
 
 
 @SpringBootApplication
+@ComponentScan(basePackages = "com.kanbanBoard.demo")
+@EnableAutoConfiguration
+@PropertySources({
+		@PropertySource("classpath:application.properties"),
+		@PropertySource("classpath:auth0.properties.example")
+})
+
 public class KanbanWebappApplication {
 
 	public static void main(String[] args) {
